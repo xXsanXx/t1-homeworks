@@ -14,13 +14,13 @@ public record Command(
 ) {
     public void validate() {
         if (description.length() > 1000)
-            throw new CommandValidationException("Описание команды не должно превышать 1000 символов");
+            throw new CommandValidationException("The command description must not exceed 1000 characters");
         if (author.length() > 100)
-            throw new CommandValidationException("Данные об авторе не должны превышать 100 символов");
+            throw new CommandValidationException("Author details should not exceed 100 characters");
         try {
             LocalDate.parse(time, DateTimeFormatter.ISO_LOCAL_DATE);
         } catch (DateTimeParseException e) {
-            throw new CommandValidationException("Строка должна соответствовать формату ISO-8601 ");
+            throw new CommandValidationException("The string must comply with ISO-8601 format");
         }
     }
 

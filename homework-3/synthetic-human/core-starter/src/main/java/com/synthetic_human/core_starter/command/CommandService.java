@@ -1,9 +1,13 @@
 package com.synthetic_human.core_starter.command;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CommandService implements CommandExecutor {
+
+    private final Logger logger = LoggerFactory.getLogger(CommandService.class);
 
     private final CommandQueue commandQueue = new CommandQueue(this);
 
@@ -22,7 +26,7 @@ public class CommandService implements CommandExecutor {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        System.out.printf("Executing %s", command);
+        logger.info("Executing {}", command);
     }
 
 
