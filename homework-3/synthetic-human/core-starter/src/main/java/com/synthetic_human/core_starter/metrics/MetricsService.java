@@ -4,7 +4,9 @@ import com.synthetic_human.core_starter.command.Command;
 import com.synthetic_human.core_starter.command.CommandQueue;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
+import org.springframework.stereotype.Service;
 
+@Service
 public class MetricsService {
     private final MeterRegistry meterRegistry;
 

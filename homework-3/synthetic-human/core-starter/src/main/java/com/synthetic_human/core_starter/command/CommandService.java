@@ -18,6 +18,8 @@ public class CommandService implements CommandExecutor {
     @Autowired
     public CommandService(MetricsService metricsService) {
         this.metricsService = metricsService;
+
+        logger.debug("registered queue");
         metricsService.registerCommandQueue(commandQueue);
     }
 
@@ -32,7 +34,7 @@ public class CommandService implements CommandExecutor {
     @Override
     public void execute(Command command) {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

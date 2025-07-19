@@ -18,7 +18,7 @@ public record Command(
         if (author.length() > 100)
             throw new CommandValidationException("Author details should not exceed 100 characters");
         try {
-            LocalDate.parse(time, DateTimeFormatter.ISO_LOCAL_DATE);
+            LocalDate.parse(time, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         } catch (DateTimeParseException e) {
             throw new CommandValidationException("The string must comply with ISO-8601 format");
         }
