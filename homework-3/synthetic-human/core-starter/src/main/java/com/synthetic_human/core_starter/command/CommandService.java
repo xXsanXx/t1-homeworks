@@ -1,15 +1,25 @@
 package com.synthetic_human.core_starter.command;
 
+import com.synthetic_human.core_starter.metrics.MetricsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CommandService implements CommandExecutor {
 
+    private final MetricsService metricsService;
+
     private final Logger logger = LoggerFactory.getLogger(CommandService.class);
 
-    private final CommandQueue commandQueue = new CommandQueue(this);
+    private final CommandQueue commandQueue = new ThreadPoolCommandQueue(this);
+
+    @Autowired
+    public CommandService(MetricsService metricsService) {
+        this.metricsService = metricsService;
+        metricsService.registerCommandQueue(commandQueue);
+    }
 
     public void add(Command command) {
 
@@ -27,6 +37,7 @@ public class CommandService implements CommandExecutor {
             throw new RuntimeException(e);
         }
         logger.info("Executing {}", command);
+        metricsService.countCommandProcessed(command);
     }
 
 
